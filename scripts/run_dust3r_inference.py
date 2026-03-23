@@ -278,6 +278,10 @@ def main():
 
     print(f"\nPredicted point cloud: {len(pred_pts):,} points")
 
+    if len(pred_pts) == 0:
+        print("WARNING: predicted point cloud is empty after filtering. Skipping.")
+        return
+
     # ── save predicted .ply ────────────────────────────────────────────────────
     pred_ply_path = os.path.join(args.output_dir, "predicted.ply")
     save_ply(pred_pts, pred_colors, pred_ply_path)
