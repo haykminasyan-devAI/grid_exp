@@ -271,6 +271,11 @@ def main():
     pred_pts = np.concatenate([p[m] for p, m in zip(pts3d, masks)], axis=0)
     pred_colors = np.concatenate([p[m] for p, m in zip(imgs_rgb, masks)], axis=0)
 
+    # Filter out NaN/Inf values
+    valid = np.isfinite(pred_pts).all(axis=1)
+    pred_pts = pred_pts[valid]
+    pred_colors = pred_colors[valid]
+
     print(f"\nPredicted point cloud: {len(pred_pts):,} points")
 
     # ── save predicted .ply ────────────────────────────────────────────────────
